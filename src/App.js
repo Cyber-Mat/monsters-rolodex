@@ -1,19 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import { Component } from 'react';
+import axios from 'axios';
+//import { Component } from 'react';
 
-class App extends Component {
+class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      monsters: [
-        { name: 'Frankenstein', id: 'swc1' },
-        { name: 'Dracula', id: 'lj6h' },
-        { name: 'Zombie', id: 'bvt5' },
-      ],
+      monsters: [],
     };
+  }
+
+  async componentDidMount() {
+    //fetch('https://jsonplaceholder.typicode.com/users').then((response) => console.log(response));
+    const result = await axios('https://jsonplaceholder.typicode.com/users');
+    const users = result.data;
+    this.setState({ monsters: users });
   }
   render() {
     return (
