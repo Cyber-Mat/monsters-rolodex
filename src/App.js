@@ -14,6 +14,7 @@ class App extends React.Component {
       monsters: [],
       searchField: '',
     };
+    //this.handleChange = this.handleChange.bind(this);
   }
 
   async componentDidMount() {
@@ -22,12 +23,25 @@ class App extends React.Component {
     const users = result.data;
     this.setState({ monsters: users });
   }
+
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value });
+  };
+
+  /*
+  handleChange(e) {
+    this.setState({ searchField: e.target.value });
+  }
+  */
+
   render() {
     const { monsters, searchField } = this.state;
     const filteredMonsters = monsters.filter((monster) => monster.name.toLowerCase().includes(searchField.toLowerCase()));
+
     return (
       <div className='App'>
-        <SearchBox placeholder='Search monster' handleChange={(e) => this.setState({ searchField: e.target.value })} />
+        <h1>Monsters Rolodex</h1>
+        <SearchBox placeholder='Search monster' handleChange={this.handleChange} />
         <CardList monsters={filteredMonsters}></CardList>
       </div>
     );
